@@ -7,5 +7,5 @@ package model.trees;
 /**
  * Red & Black BinaryTree
  */
-public interface BinaryRBTree extends BinaryTree {
+public interface BinaryRBTree<E> extends BinaryTree<E> {
 }
