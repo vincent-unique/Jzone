@@ -5,4 +5,9 @@ include 'generics'
 include 'concurrent'
 include 'data-structure'
 findProject(':data-structure')?.name = 'jds'
+include 'orm-hibernate'
+include 'orm-mybatis'
+include 'mq-rabbitmq'
+findProject(':mq-rabbitmq')?.name = 'rabbitmq'
+
 
