@@ -1,18 +1,4 @@
-buildscript {
-	ext {
-		springBootVersion = '1.5.9.RELEASE'
-	}
-	repositories {
-		mavenCentral()
-	}
-	dependencies {
-		classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
-	}
-}
-
 apply plugin: 'java'
-apply plugin: 'eclipse'
-apply plugin: 'org.springframework.boot'
 
 group = 'org.trump.vincent'
 version = '0.0.1'
@@ -26,9 +12,8 @@ repositories {
 dependencies {
 	// https://mvnrepository.com/artifact/com.rabbitmq/amqp-client
 	compile group: 'com.rabbitmq', name: 'amqp-client', version: '4.1.0'
-	// https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-amqp
-	compile group: 'org.springframework.boot', name: 'spring-boot-starter-amqp'
 
-	compile('org.springframework.boot:spring-boot-starter')
-	testCompile('org.springframework.boot:spring-boot-starter-test')
+	// https://mvnrepository.com/artifact/com.google.code.gson/gson
+	compile group: 'com.google.code.gson', name: 'gson', version: '2.4'
+
 }
