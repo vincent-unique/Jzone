@@ -1,6 +1,6 @@
-package model.trees.impl;
+package org.trump.vincent.jds.model.trees.impl;
 
-import model.trees.BinaryTree;
+import org.trump.vincent.jds.model.trees.BinaryTree;
 
 /**
  * Created by Vincent on 2017/11/30 0030.
