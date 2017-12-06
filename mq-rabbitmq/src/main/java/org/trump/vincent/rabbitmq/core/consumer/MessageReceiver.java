@@ -16,13 +16,27 @@ public class MessageReceiver {
 
     public static String QUEUE_NAME = "wiki_buf";
 
+    /**
+     * durable
+     * determine that this Queue will be perssisted when The RabbitMQ goes down.
+     */
+    private boolean durable = true;
+
+    private int prefetchNum = 1;
+
+
     private Logger logger = LoggerFactory.getLogger(this.getClass());
 
     public void process(){
         Channel channel = null;
         try {
             channel = RabbitConnection.getConnection().createChannel();
-            channel.queueDeclare(  QUEUE_NAME,false,false,false,null);
+            /**
+             * determine that get one message from the Channel once.
+             */
+            channel.basicQos(prefetchNum);
+
+            channel.queueDeclare(  QUEUE_NAME,durable,false,false,null);
             Consumer consumer = new DefaultConsumer(channel) {
 
                 @Override
@@ -32,10 +46,16 @@ public class MessageReceiver {
                                            byte[] body)
                         throws IOException
                 {
+                    System.out.println("I get the message:"+new String(body,"UTF-8"));
+
                     logger.info("I get the message:",new String(body,"UTF-8"));
                 }
             };
-            channel.basicConsume(QUEUE_NAME,consumer);
+            /**
+             * autoAck : determine whether acknowledge task completion
+             */
+            boolean autoAck = true;
+            channel.basicConsume(QUEUE_NAME,autoAck,consumer);
         }catch (IOException e){
             logger.error("Exception occurs in sending message.",e);
         }

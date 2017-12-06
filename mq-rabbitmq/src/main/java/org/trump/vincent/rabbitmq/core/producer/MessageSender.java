@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import com.rabbitmq.client.Channel;
 import com.rabbitmq.client.Connection;
 import com.rabbitmq.client.ConnectionFactory;
+import com.rabbitmq.client.MessageProperties;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.trump.vincent.rabbitmq.core.RabbitConnection;
@@ -25,7 +26,12 @@ public class MessageSender<M> {
         Channel channel = null;
         try {
             channel = RabbitConnection.getConnection().createChannel();
-            channel.basicPublish("", QUEUE_NAME, null, new Gson().toJson(message).getBytes("UTF-8"));
+            /**
+             * MessageProperties.PERSISTENT_TEXT_PLAIN
+             * determine that the Messages in certain Queue will be perssisted when The RabbitMQ goes down.
+             */
+            channel.basicPublish("", QUEUE_NAME, MessageProperties.PERSISTENT_TEXT_PLAIN, new Gson().toJson(message).getBytes("UTF-8"));
+
         }catch (IOException e){
             logger.error("Exception occurs in sending message.",e);
         }finally {
