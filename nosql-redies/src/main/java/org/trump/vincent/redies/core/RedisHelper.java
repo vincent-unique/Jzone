@@ -8,6 +8,7 @@ import java.util.Set;
 
 /**
  * Created by Vincent on 2017/12/8 0008.
+ * @Reference :  https://www.cnblogs.com/liuling/p/2014-4-19-04.html
  */
 public class RedisHelper {
     public RedisHelper(Jedis redisClient) {
