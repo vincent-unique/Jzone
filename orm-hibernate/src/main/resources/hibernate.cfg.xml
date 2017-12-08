@@ -16,17 +16,27 @@
         <!-- JDBC connection pool (use the built-in) -->
         <property name="connection.pool_size">10</property>
 
+        <!--settings for c3p0 connection pool
+           @Link AvailableSettings -->
+       <!-- <property name="c3p0.max_size">20</property>
+        <property name="c3p0.timeout">500</property>
+        <property name="c3p0.min_size">2</property>
+        <property name="c3p0.max_statements">50</property>
+        -->
         <!-- SQL dialect -->
         <property name="dialect">org.hibernate.dialect.HSQLDialect</property>
 
         <!-- Enable Hibernate's automatic session context management -->
         <property name="current_session_context_class">thread</property>
 
-        <!-- Disable the second-level cache  -->
+        <!-- Disable the second-level cache (SessionFactory Level) -->
         <!--<property name="cache.provider_class">org.hibernate.cache.NoCacheProvider</property>-->
+        
+        <property name="hibernate.transaction.factory_class"></property>
 
         <!-- Echo all executed SQL to stdout -->
         <property name="show_sql">true</property>
+        <property name="format_sql">true</property>
 
         <!-- Drop and re-create the database schema on startup -->
         <property name="hbm2ddl.auto">update</property>

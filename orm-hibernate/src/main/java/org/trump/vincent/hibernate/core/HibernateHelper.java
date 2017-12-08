@@ -7,12 +7,17 @@ import org.hibernate.cfg.Configuration;
  * Created by Vincent on 2017/12/4 0004.
  */
 public class HibernateHelper {
+    /**
+     * SessionFactory is thread-safe ,so do not warry using sessionfactory's method
+     */
     private static volatile SessionFactory sessionFactory;
 
     public static SessionFactory buildSessionFactory(String cfgLocation){
         try {
             if(cfgLocation==null||cfgLocation.isEmpty()){
-                return new Configuration().configure().buildSessionFactory();
+                return new Configuration()
+                        /*.addResource("hibernate.cfg.xml")*/
+                        .configure().buildSessionFactory();
             }
             return new Configuration().configure(cfgLocation).buildSessionFactory();
         }catch (final Throwable e){

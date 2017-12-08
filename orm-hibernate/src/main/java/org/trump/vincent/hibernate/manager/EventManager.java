@@ -23,4 +23,24 @@ public class EventManager {
         }
         return false;
     }
+
+    public Event findById(String id){
+        Event event = null;
+        if(id!=null && !id.isEmpty()){
+            Session session = sessionFactory.getCurrentSession();
+            session.beginTransaction();
+            event =session.get(Event.class,id);
+            session.getTransaction().commit();
+        }
+        return event;
+    }
+
+    public void delete(Event event){
+        if(event!=null){
+            Session session = sessionFactory.getCurrentSession();
+            session.beginTransaction();
+            session.delete(event);
+            session.getTransaction().commit();
+        }
+    }
 }
