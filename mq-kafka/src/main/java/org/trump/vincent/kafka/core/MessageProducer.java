@@ -1,9 +1,11 @@
 package org.trump.vincent.kafka.core;
 
+import org.apache.kafka.clients.producer.Callback;
 import org.apache.kafka.clients.producer.KafkaProducer;
 import org.apache.kafka.clients.producer.Producer;
 import org.apache.kafka.clients.producer.ProducerRecord;
 
+import java.util.Map;
 import java.util.Properties;
 
 /**
@@ -12,15 +14,80 @@ import java.util.Properties;
 public class MessageProducer<M> {
 
     private Producer<String,M> producer;
-    private Properties kafkaProps;
+
+    private Map producerConfigs;
+
+    private String topicId;
+
+    private Integer partionNum = 1;
+
+    private Integer replicationNum = 1;
+
 
     public MessageProducer(Properties properties){
-        this.kafkaProps = properties;
-        this.producer = new KafkaProducer<String, M>(this.kafkaProps);
+        this.producerConfigs = properties;
+        this.producer = new KafkaProducer<String, M>(this.producerConfigs);
     }
-    public void publish(M message){
 
+    public MessageProducer(Properties properties,Integer partionNum,Integer replicationNum){
+        this(properties);
+        this.partionNum = partionNum;
+        this.replicationNum = replicationNum;
     }
+
+    public void publish(M message){
+        if(producer==null){
+            throw new NullPointerException("Null Kafka Message Producer.");
+        }
+        this.producer.send(new ProducerRecord<String, M>(this.topicId,message));
+    }
+
+    public void publish(M message, Callback callback){
+        if(producer==null){
+            throw new NullPointerException("Null Kafka Message Producer.");
+        }
+        this.producer.send(new ProducerRecord<String, M>(this.topicId,message),callback);
+    }
+
+
+    public Map getProducerConfigs() {
+        return producerConfigs;
+    }
+
+    public MessageProducer setProducerConfigs(Map producerConfigs) {
+        this.producerConfigs = producerConfigs;
+        return this;
+    }
+
+    public String getTopicId() {
+        return topicId;
+    }
+
+    public MessageProducer setTopicId(String topicId) {
+        this.topicId = topicId;
+        return this;
+    }
+
+    public Integer getPartionNum() {
+        return partionNum;
+    }
+
+    public MessageProducer setPartionNum(Integer partionNum) {
+        this.partionNum = partionNum;
+        return this;
+    }
+
+    public Integer getReplicationNum() {
+        return replicationNum;
+    }
+
+    public MessageProducer setReplicationNum(Integer replicationNum) {
+        this.replicationNum = replicationNum;
+        return this;
+    }
+
+
+
     public static void main(String[] args) {
         Properties props = new Properties();
         props.put("bootstrap.servers", "localhost:9092");
@@ -50,14 +117,5 @@ public class MessageProducer<M> {
             producer.send(new ProducerRecord<String, String>("foo", i % 4, Integer.toString(i), Integer.toString(i)));
         }
         producer.close();
-    }
-
-    public Properties getKafkaProps() {
-        return kafkaProps;
-    }
-
-    public MessageProducer setKafkaProps(Properties kafkaProps) {
-        this.kafkaProps = kafkaProps;
-        return this;
     }
 }

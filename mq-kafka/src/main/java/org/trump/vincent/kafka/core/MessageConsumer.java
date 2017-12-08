@@ -5,13 +5,69 @@ import org.apache.kafka.clients.consumer.ConsumerRecords;
 import org.apache.kafka.clients.consumer.KafkaConsumer;
 
 import java.util.Arrays;
+import java.util.Collection;
+import java.util.Map;
 import java.util.Properties;
 
 /**
  * Created by Vincent on 2017/12/6 0006.
  */
-public class MessageConsumer
-{
+public class MessageConsumer<M>{
+    private Map consumerConfigs;
+
+    private KafkaConsumer<String,M> consumer;
+
+    private String groupId;
+
+    private Integer timeout = 500;
+
+    public MessageConsumer(Map properties){
+        this.consumerConfigs = properties;
+        this.consumer = new KafkaConsumer<String, M>(consumerConfigs);
+    }
+
+    public MessageConsumer(Map properties,String groupId){
+        this(properties);
+        this.groupId = groupId;
+    }
+
+    public void subscribe(Collection<String> topics){
+        if(this.consumer==null){
+            throw new NullPointerException("Null Kafka Message Consumer.");
+        }
+        this.consumer.subscribe(topics);
+    }
+
+    public void onListener(Collection<String> topics,Woker<ConsumerRecord> woker){
+        subscribe(topics);
+        while (true){
+           ConsumerRecords<String,M> consumerRecords = this.consumer.poll(this.timeout);
+            if(consumerRecords!=null&& !consumerRecords.isEmpty()){
+                for (ConsumerRecord<String,M> consumerRecord:consumerRecords){
+                    woker.run(consumerRecord);
+                }
+            }
+        }
+    }
+
+    public Integer getTimeout() {
+        return timeout;
+    }
+
+    public MessageConsumer setTimeout(Integer timeout) {
+        this.timeout = timeout;
+        return this;
+    }
+
+    public String getGroupId() {
+        return groupId;
+    }
+
+    public MessageConsumer setGroupId(String groupId) {
+        this.groupId = groupId;
+        return this;
+    }
+
     public static void main(String[] args) {
         Properties props = new Properties();
 
