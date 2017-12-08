@@ -9,5 +9,12 @@ include 'orm-hibernate'
 include 'orm-mybatis'
 include 'mq-rabbitmq'
 findProject(':mq-rabbitmq')?.name = 'rabbitmq'
-
+include 'mq-kafka'
+include 'zookeeper'
+include 'nosql-redies'
+findProject(':nosql-redies')?.name = 'redies'
+include 'nosql-memcached'
+findProject(':nosql-memcached')?.name = 'memcached'
+include 'nosql-mongodb'
+findProject('nosql-mongodb')?.name = 'mongodb'
 
