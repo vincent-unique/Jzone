@@ -12,8 +12,6 @@ repositories {
 dependencies {
 	// https://mvnrepository.com/artifact/com.rabbitmq/amqp-client
 	compile group: 'com.rabbitmq', name: 'amqp-client', version: '4.1.0'
-
 	// https://mvnrepository.com/artifact/com.google.code.gson/gson
 	compile group: 'com.google.code.gson', name: 'gson', version: '2.4'
-
 }
