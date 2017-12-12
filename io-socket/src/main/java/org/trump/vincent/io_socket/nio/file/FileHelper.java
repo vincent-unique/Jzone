@@ -43,6 +43,7 @@ public class FileHelper {
         buffer.put(contents);
         buffer.flip();
         fileChannel.write(buffer);
+        fileChannel.close();
     }
 
     /**
@@ -68,6 +69,8 @@ public class FileHelper {
             buffer.flip();
             tgtChannel.write(buffer);
         }
+        srcChannel.close();
+        tgtChannel.close();
     }
 
 }
