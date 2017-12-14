@@ -1,55 +1,89 @@
 package org.trump.vincent.jds.model.trees.impl;
 
-import org.trump.vincent.jds.model.trees.BinaryTree;
+import org.trump.vincent.jds.model.trees.binarytreee.BinaryTree;
 
 /**
  * Created by Vincent on 2017/11/30 0030.
  */
-public class BinaryTreeImpl<E> implements BinaryTree<E> {
+public abstract class BinaryTreeImpl<E> implements BinaryTree<E> {
 
-    private Entry<E> root;
+    private Node<E> root;
 
-    public E treeIterate(Entry<E> root ,E element){
+    public abstract void visit(BinaryTree.Node<E> node);
 
-        return element;
-    }
-
-    public E treeInoderIterate(Entry<E> node,E element){
-        if(node!=null) {
-            treeIterate(node.left, element);
-            if (node.element.equals(element)) {
-                return element;
-            }
-            treeIterate(node.right, element);
+    public void preOrderTraversal(Node<E> current){
+        if(current !=null){
+            visit(current);
+            preOrderTraversal(current.getLeft());
+            preOrderTraversal(current.getRight());
         }
-        return null;
     }
 
-    public E treePreorderIterate(Entry<E> node,E element){
-        if(node!=null){
-            if(node.element.equals(element)){
-                return element;
-            }
-            treePreorderIterate(node.left,element);
-            treePreorderIterate(node.right,element);
+    public void inOrderTraversal(Node<E> current){
+        if(current!=null){
+            inOrderTraversal(current.getLeft());
+            visit(current);
+            inOrderTraversal(current.getRight());
         }
-        return null;
     }
 
-    public E treePostorderIterate(Entry<E> node,E element){
-        if(node==null){
-            treePostorderIterate(node.left,element);
-            treePostorderIterate(node.right,element);
-            if(node.element.equals(element)){
-                return element;
-            }
+    public void postOrderTraversal(Node<E> current){
+        if(current!=null){
+            postOrderTraversal(current.getLeft());
+            postOrderTraversal(current.getRight());
+            visit(current);
         }
-        return null;
     }
-    public static class Entry<E> {
-        private E element;
-        private Entry<E> parent;
-        private Entry<E> left;
-        private Entry<E> right;
+
+    public static class NodeImpl<E> implements BinaryTree.Node<E> {
+        private E data;
+        private Node<E> parent;
+        private Node<E> left;
+        private Node<E> right;
+
+        public E getData() {
+            return data;
+        }
+
+        public Node<E> setData(E data) {
+            this.data = data;
+            return this;
+        }
+
+        public Node<E> getParent() {
+            return parent;
+        }
+
+        public Node<E> setParent(Node<E> parent) {
+            this.parent = parent;
+            return this;
+        }
+
+        public Node<E> getLeft() {
+            return left;
+        }
+
+        public Node<E> setLeft(Node<E> left) {
+            this.left = left;
+            return this;
+        }
+
+        public Node<E> getRight() {
+            return right;
+        }
+
+        public Node<E> setRight(Node<E> right) {
+            this.right = right;
+            return this;
+        }
+    }
+
+    public Node<E> getRoot() {
+        return root;
+    }
+
+    public BinaryTreeImpl setRoot(Node<E> root) {
+        this.root = root;
+        return this;
     }
 }
