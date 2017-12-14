@@ -18,4 +18,5 @@ findProject(':nosql-memcached')?.name = 'memcached'
 include 'nosql-mongodb'
 findProject('nosql-mongodb')?.name = 'mongodb'
 include 'io-socket'
+include 'algorithm'
 
