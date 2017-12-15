@@ -1,4 +1,4 @@
-package org.trump.vincent.concurrent.core;
+package org.trump.vincent.concurrent;
 
 import java.util.concurrent.TimeUnit;
 

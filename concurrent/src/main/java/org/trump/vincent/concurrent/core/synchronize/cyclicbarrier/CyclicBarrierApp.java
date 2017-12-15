@@ -1,4 +1,4 @@
-package org.trump.vincent.concurrent.core.cyclicbarrier;
+package org.trump.vincent.concurrent.core.synchronize.cyclicbarrier;
 
 import java.util.concurrent.*;
 

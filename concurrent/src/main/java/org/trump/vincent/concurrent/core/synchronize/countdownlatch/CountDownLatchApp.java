@@ -1,4 +1,4 @@
-package org.trump.vincent.concurrent.core.countdownlatch;
+package org.trump.vincent.concurrent.core.synchronize.countdownlatch;
 
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ExecutorService;

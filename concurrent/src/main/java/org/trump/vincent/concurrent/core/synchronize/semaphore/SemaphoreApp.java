@@ -1,4 +1,4 @@
-package org.trump.vincent.concurrent.core.semaphore;
+package org.trump.vincent.concurrent.core.synchronize.semaphore;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;

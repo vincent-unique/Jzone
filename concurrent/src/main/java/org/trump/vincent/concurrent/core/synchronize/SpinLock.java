@@ -1,4 +1,4 @@
-package org.trump.vincent.concurrent.lock;
+package org.trump.vincent.concurrent.core.synchronize;
 
 import sun.misc.Unsafe;
 

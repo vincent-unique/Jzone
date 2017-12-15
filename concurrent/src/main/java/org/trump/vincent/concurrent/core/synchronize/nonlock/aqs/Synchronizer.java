@@ -1,4 +1,4 @@
-package org.trump.vincent.concurrent.lock.aqs;
+package org.trump.vincent.concurrent.core.synchronize.nonlock.aqs;
 
 import java.util.concurrent.locks.AbstractQueuedSynchronizer;
 
