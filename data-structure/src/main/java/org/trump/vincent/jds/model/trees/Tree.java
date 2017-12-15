@@ -3,6 +3,8 @@ package org.trump.vincent.jds.model.trees;
 import org.trump.vincent.jds.model.trees.binarytreee.BinaryTree;
 import org.trump.vincent.jds.model.trees.impl.BinaryTreeImpl;
 
+import java.util.List;
+
 /**
  * Created by Vincent on 2017/11/30 0030.
  */
@@ -17,12 +19,14 @@ public interface Tree<E> {
 
     void postOrderTraversal(Node<E> current);
 
+    void levelTraversal(Node<E> current);
 
     interface Node<E>{
         E getData();
         Node setData(E data);
 
         Node<E> addSon(Tree.Node<E> node);
+        List<Node<E>> getSons();
     }
 
 }

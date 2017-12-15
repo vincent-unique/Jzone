@@ -11,6 +11,10 @@ public abstract class BinaryTreeImpl<E> implements BinaryTree<E> {
 
     public abstract void visit(BinaryTree.Node<E> node);
 
+    /**
+     * PreOrder Traversal for BinaryTree
+     * @param current
+     */
     public void preOrderTraversal(Node<E> current){
         if(current !=null){
             visit(current);
@@ -19,6 +23,10 @@ public abstract class BinaryTreeImpl<E> implements BinaryTree<E> {
         }
     }
 
+    /**
+     * InOrder Traversal for BinaryTree
+     * @param current
+     */
     public void inOrderTraversal(Node<E> current){
         if(current!=null){
             inOrderTraversal(current.getLeft());
@@ -27,6 +35,10 @@ public abstract class BinaryTreeImpl<E> implements BinaryTree<E> {
         }
     }
 
+    /**
+     * PostOrder Traversal for BinaryTree
+     * @param current
+     */
     public void postOrderTraversal(Node<E> current){
         if(current!=null){
             postOrderTraversal(current.getLeft());

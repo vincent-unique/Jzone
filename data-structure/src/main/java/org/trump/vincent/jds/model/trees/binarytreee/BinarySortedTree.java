@@ -3,19 +3,19 @@ package org.trump.vincent.jds.model.trees.binarytreee;
 /**
  * Created by Vincent on 2017/12/14 0014.
  */
-public interface BinarySortedTree<T> {
-    interface Node<T>{
+public interface BinarySortedTree<E> {
+    interface Node<E>{
 
     }
 
-    Node<T> getRoot();
+    Node<E> getRoot();
 
-    Node<T> search(T value);
+    Node<E> search(E value);
 
-    void insert(Node<T> newNode);
+    void insert(Node<E> newNode);
 
-    void create(Node<T>[] nodes);
+    void create(Node<E>[] nodes);
 
-    void delete(Node<T> node);
+    void delete(Node<E> node);
 
 }
