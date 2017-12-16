@@ -23,6 +23,8 @@ public class CyclicBarrierApp {
             try {
                 commonBarrier.await();
                 TimeUnit.SECONDS.sleep(1);
+                System.out.println(Thread.currentThread().getId()+" working.\n");
+
                 commonBarrier.reset();
                 System.out.println(Thread.currentThread().getId()+" finished.\n");
             }catch (InterruptedException e){
@@ -39,7 +41,8 @@ public class CyclicBarrierApp {
             public void run() {
                 System.out.println("All Wait 3s.\n");
                 try {
-                    TimeUnit.SECONDS.sleep(3);
+                    TimeUnit.SECONDS.sleep(3);                System.out.println("All Wait 3s.\n");
+                    System.out.println("3s Wait end.\n");
                 }catch (InterruptedException e){
                     e.printStackTrace();
                 }

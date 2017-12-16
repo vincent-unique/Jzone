@@ -7,5 +7,5 @@ package org.trump.vincent.jds.model.trees.binarytreee;
 /**
  * Red & Black BinaryTree
  */
-public interface RedBlackBinaryTree<E> extends BinaryTree<E> {
+public interface RedBlackBinaryTree<E extends Comparable<E>> extends BinaryTree {
 }

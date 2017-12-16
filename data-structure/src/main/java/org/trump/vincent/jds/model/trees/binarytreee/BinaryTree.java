@@ -13,7 +13,9 @@ import org.trump.vincent.jds.model.trees.Tree;
  * 另外，树的遍历还有一种 层次遍历方法（借助于队列，上层出列完成访问，其子节点入列）
  * @param <E>
  */
-public interface BinaryTree<E> extends Tree<E> {
+public interface BinaryTree<E extends Comparable<E>> extends Tree<E> {
+
+    Node<E> find(E key);
 
     interface Node<E>{
         E getData();

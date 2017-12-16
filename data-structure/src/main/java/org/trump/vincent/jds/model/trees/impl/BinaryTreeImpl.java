@@ -5,10 +5,36 @@ import org.trump.vincent.jds.model.trees.binarytreee.BinaryTree;
 /**
  * Created by Vincent on 2017/11/30 0030.
  */
-public abstract class BinaryTreeImpl<E> implements BinaryTree<E> {
+public abstract class BinaryTreeImpl<E extends Comparable<E>> implements BinaryTree<E> {
 
     private Node<E> root;
 
+    /**
+     * Retrieve Implementation of BinaryTree
+     * @param key
+     * @return
+     */
+    public Node<E> find(E key){
+        return find(getRoot(),key);
+    }
+
+    public abstract void insert(Node<E> current,Node<E> node);
+
+
+    protected Node<E> find(Node<E> current,E key){
+        if(current==null)
+            return null;
+        if(current.getData()==null){
+            throw new NullPointerException("Null Node Key.");
+        }else if(current.getData().equals(key)||current.getData().compareTo(key)==0){
+            return current;
+        }else if(current.getData().compareTo(key)>0){
+            return find(current.getLeft(),key);
+        }else if(current.getData().compareTo(key)<0){
+            return find(current.getRight(),key);
+        }
+        return null;
+    }
     public abstract void visit(BinaryTree.Node<E> node);
 
     /**

@@ -5,7 +5,17 @@ package org.trump.vincent.jds.model.trees.binarytreee;
  */
 public interface BinarySortedTree<E> {
     interface Node<E>{
+        E getData();
+        Node<E> setData(E data);
 
+        Node<E> getParent();
+        Node<E> setParent(BinaryTree.Node<E> parent);
+
+        Node<E> getLeft();
+        Node<E> setLeft(BinaryTree.Node<E> left);
+
+        Node<E> getRight();
+        Node<E> setRight(BinaryTree.Node<E> right);
     }
 
     Node<E> getRoot();
