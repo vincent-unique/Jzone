@@ -17,6 +17,8 @@ public interface BinaryTree<E extends Comparable<E>> extends Tree<E> {
 
     Node<E> find(E key);
 
+    Integer computeHeight(BinarySortedTree.Node<E> root);
+
     interface Node<E>{
         E getData();
         Node<E> setData(E data);

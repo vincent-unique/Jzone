@@ -9,18 +9,22 @@ public interface BinarySortedTree<E> {
         Node<E> setData(E data);
 
         Node<E> getParent();
-        Node<E> setParent(BinaryTree.Node<E> parent);
+        Node<E> setParent(Node<E> parent);
 
         Node<E> getLeft();
-        Node<E> setLeft(BinaryTree.Node<E> left);
+        Node<E> setLeft(Node<E> left);
 
         Node<E> getRight();
-        Node<E> setRight(BinaryTree.Node<E> right);
+        Node<E> setRight(Node<E> right);
     }
 
     Node<E> getRoot();
 
     Node<E> search(E value);
+
+    Integer computeHeight(Node<E> root);
+
+    boolean isBalanceTree(Node<E> node);
 
     void insert(Node<E> newNode);
 

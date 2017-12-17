@@ -1,5 +1,6 @@
 package org.trump.vincent.jds.model.trees.impl;
 
+import org.trump.vincent.jds.model.trees.binarytreee.BinarySortedTree;
 import org.trump.vincent.jds.model.trees.binarytreee.BinaryTree;
 
 /**
@@ -18,8 +19,26 @@ public abstract class BinaryTreeImpl<E extends Comparable<E>> implements BinaryT
         return find(getRoot(),key);
     }
 
+    /**
+     * BinaryTree Insertion may be implementated as Level Insertion
+     * @param current
+     * @param node
+     */
     public abstract void insert(Node<E> current,Node<E> node);
 
+    /**
+     * Compute Height of the certain BinaryTree
+     * @param root
+     * @return
+     */
+    public Integer computeHeight(BinarySortedTree.Node<E> root){
+        if(root==null){
+            return 0;
+        }else {
+            return 1+Math.max(computeHeight(root.getLeft()),
+                    computeHeight(root.getRight()));
+        }
+    }
 
     protected Node<E> find(Node<E> current,E key){
         if(current==null)
