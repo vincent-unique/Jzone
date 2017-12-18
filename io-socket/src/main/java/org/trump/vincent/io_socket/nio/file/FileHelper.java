@@ -29,6 +29,17 @@ public class FileHelper {
         return buffer;
     }
 
+    public static void read(String file,Byte[] result)throws FileNotFoundException,IOException{
+        if(result==null){
+            throw new NullPointerException("Null container.");
+        }
+        int length = result.length;
+        ByteBuffer buffer = read(file);
+        while (buffer.hasRemaining()){
+           result[length-1] = buffer.get();
+        }
+    }
+
     /**
      * write data to channel
      * @param contents
