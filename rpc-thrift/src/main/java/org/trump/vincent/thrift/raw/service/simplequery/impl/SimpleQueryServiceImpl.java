@@ -1,7 +1,7 @@
-package org.trump.vincent.thrift.raw.service.impl;
+package org.trump.vincent.thrift.raw.service.simplequery.impl;
 
-import org.trump.vincent.thrift.raw.service.generate.QueryResult;
-import org.trump.vincent.thrift.raw.service.generate.SimpleQuery;
+import org.trump.vincent.thrift.raw.service.simplequery.generate.QueryResult;
+import org.trump.vincent.thrift.raw.service.simplequery.generate.SimpleQuery;
 
 /**
  * Created by Vincent on 2017/12/19 0019.

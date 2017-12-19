@@ -1,7 +1,7 @@
 /**
 * 实现功能：创建一个查询结果struct 和一个服务接口service
 **/
-namespace java org.trump.vincent.thrift.raw.service
+namespace java org.trump.vincent.thrift.raw.service.simplequery
 struct QueryResult {
         /**
         *返回码, 1成功，0失败
