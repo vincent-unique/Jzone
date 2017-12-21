@@ -8,6 +8,9 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.concurrent.Semaphore;
 
+/**
+ *@Refernece http://www.jianshu.com/p/61ba3714e39a
+ */
 public class TcpServer {
 
     private ServerSocket server;
@@ -52,6 +55,11 @@ public class TcpServer {
                    try {
                        semaphore.acquire();
                        logger.info("Thread["+Thread.currentThread().getId()+"] is handling the socket request.");
+
+                       /**
+                        * CallBack task contains some stream operations from socket.
+                        * Notice close the streams inner task method
+                        */
                        callBack.task(socket);
                    }catch (InterruptedException e){
                        e.printStackTrace();
