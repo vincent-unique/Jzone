@@ -9,10 +9,10 @@ import java.lang.reflect.Proxy;
 /**
  * @Reference http://www.jianshu.com/p/c9bffd1c475a
  */
-public class RequestEmitter {
+public class RequestEmitterExecutor {
     private RpcServerLoader loader = RpcServerLoader.getInstance();
 
-    public RequestEmitter(String serverAddress) {
+    public RequestEmitterExecutor(String serverAddress) {
         loader.load(serverAddress);
     }
 
