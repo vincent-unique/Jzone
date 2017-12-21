@@ -17,7 +17,14 @@ public class RPCRequest {
 
     private String methodName;
 
+    /**
+     * Its order of pulling keeps to the order of element insertion
+     */
     private List<Map> requestParams;
+
+    public RPCRequest(){
+
+    }
 
     public RPCRequest(String requestId,String className,String methodName){
         this(className,methodName);
