@@ -51,6 +51,14 @@ public class TerminatedThreadRevival {
                 }
             }
         }
+
+        /**
+         * Research for the thread lifecycle.
+         */
+        @Override
+        public void finalize(){
+            System.out.println("Report: the current thread instance object is being GC.["+this.getName()+"]");
+        }
     }
 
     public static void main(String[] args) {

@@ -27,6 +27,6 @@ public class ServerInitializer extends ChannelInitializer<SocketChannel> {
         pipeline.addLast(new HttpServerCodec());
         /*HTTP 消息的合并处理*/
         pipeline.addLast(new HttpObjectAggregator(2048));
-//        pipeline.addLast(new HealthServerHandler()); /*自己写的服务器逻辑处理*/
+        pipeline.addLast(new HealthServerHandler()); /*自己写的服务器逻辑处理*/
     }
 }

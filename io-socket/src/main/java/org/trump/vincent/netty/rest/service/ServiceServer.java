@@ -44,9 +44,9 @@ public class ServiceServer {
                 File sslFile = selfSignedCertificate.certificate();
                 sslContext = SslContext.newClientContext(sslFile);
             }catch (CertificateException e){
-
+                e.printStackTrace();
             }catch (SSLException e){
-
+                e.printStackTrace();
             }
         }
 
@@ -54,13 +54,14 @@ public class ServiceServer {
         EventLoopGroup wokerGroup = new NioEventLoopGroup();
         try {
             ServerBootstrap bootstrap = new ServerBootstrap();
-            bootstrap.option(ChannelOption.SO_BACKLOG,1024);
+
+            bootstrap.option(ChannelOption.SO_BACKLOG,1024)
+                    .childOption(ChannelOption.SO_KEEPALIVE,true);
 
             bootstrap.group(bossGroup,wokerGroup)
                     .channel(NioServerSocketChannel.class)
                     .handler(new LoggingHandler(LogLevel.INFO))
-                    .childHandler(new ServerInitializer(sslContext))
-                    .childHandler(new HealthServerHandler<>());
+                    .childHandler(new ServerInitializer(sslContext));
 
             Channel channel = bootstrap.bind(this.port)
                     .sync()
@@ -70,11 +71,10 @@ public class ServiceServer {
                     " You may access the serivces with [" +(SSL?"https":"http")+"].");
             channel.closeFuture().sync();
         }catch (Throwable e){
-
+            e.printStackTrace();
         }finally {
             bossGroup.shutdownGracefully();
             wokerGroup.shutdownGracefully();
         }
-
     }
 }

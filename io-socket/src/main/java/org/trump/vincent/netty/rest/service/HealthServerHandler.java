@@ -9,6 +9,7 @@ import io.netty.channel.ChannelHandlerContext;
 import io.netty.handler.codec.AsciiString;
 import io.netty.handler.codec.http.*;
 import io.netty.util.CharsetUtil;
+import io.netty.util.ReferenceCountUtil;
 
 import static io.netty.handler.codec.http.HttpVersion.HTTP_1_1;
 
@@ -24,20 +25,26 @@ public class HealthServerHandler<T> extends ChannelHandlerAdapter {
 
     @Override
     public void channelRead(ChannelHandlerContext handlerContext, Object message) {
-        if (message instanceof FullHttpRequest) {
-            FullHttpRequest request = (FullHttpRequest) message;
+        try {
+            if (message instanceof FullHttpRequest) {
+                FullHttpRequest request = (FullHttpRequest) message;
 
 //            String uri = request.uri();
 
-            if (request.method().equals(HttpMethod.GET)) {
-                doGet(handlerContext, request);
-            } else if (request.method().equals(HttpMethod.POST)) {
-                doPost(handlerContext, request);
-            } else if (request.method().equals(HttpMethod.PUT)) {
-                doPut(handlerContext, request);
-            } else if (request.method().equals(HttpMethod.DELETE)) {
-                doDelete(handlerContext, request);
+                if (request.method().equals(HttpMethod.GET)) {
+                    doGet(handlerContext, request);
+                } else if (request.method().equals(HttpMethod.POST)) {
+                    doPost(handlerContext, request);
+                } else if (request.method().equals(HttpMethod.PUT)) {
+                    doPut(handlerContext, request);
+                } else if (request.method().equals(HttpMethod.DELETE)) {
+                    doDelete(handlerContext, request);
+                }
             }
+        }catch (Throwable e){
+            e.printStackTrace();
+        }finally {
+            ReferenceCountUtil.release(message);
         }
     }
 
@@ -106,6 +113,8 @@ public class HealthServerHandler<T> extends ChannelHandlerAdapter {
             response.headers().set(CONNECTION, KEEP_ALIVE);
             handlerContext.write(response);
         }
+        // flush the channel
+        handlerContext.flush();
     }
 
     @Override

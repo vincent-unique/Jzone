@@ -16,9 +16,10 @@ struct QueryResult {
 service SimpleQuery{
         /**
         * 测试查询接口，当qryCode值为1时返回"成功"的响应信息，qryCode值为其他值时返回"失败"的响应信息
-        * @param qryCode测试参数
+        * @param name
         */
         QueryResult query(1:string name)
+
 
         void handle(1:string data)
 }

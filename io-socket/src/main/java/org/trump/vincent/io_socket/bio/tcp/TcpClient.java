@@ -6,6 +6,7 @@ import org.slf4j.LoggerFactory;
 import java.io.*;
 import java.net.Socket;
 import java.nio.CharBuffer;
+import java.util.Map;
 
 public class TcpClient {
     private Socket socket;
@@ -27,7 +28,7 @@ public class TcpClient {
      * @param <T>
      * @throws IOException
      */
-    public <T> void run(T request,String response){
+    public <T> void run(T request,Map response){
         String result = "";
         try {
             BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
@@ -39,7 +40,7 @@ public class TcpClient {
                 result += buffer.toString();
                 buffer.clear();
             }
-            response = result;
+            response.put("response",result);
 
             /**
              * Final task ,close the stream.
