@@ -59,14 +59,15 @@ public class ServiceServer {
             bootstrap.group(bossGroup,wokerGroup)
                     .channel(NioServerSocketChannel.class)
                     .handler(new LoggingHandler(LogLevel.INFO))
-                    .childHandler(new ServerInitializer(sslContext));
+                    .childHandler(new ServerInitializer(sslContext))
+                    .childHandler(new HealthServerHandler<>());
 
             Channel channel = bootstrap.bind(this.port)
                     .sync()
                     .channel();
 
-            logger.info("Server[127.0.0.1] starting and listen the port["+ this.port+"]. You may access the serivces with ["
-                    +(SSL?"https":"http")+"].");
+            logger.info("Server[127.0.0.1] starting and listen the port["+ this.port+"]." +
+                    " You may access the serivces with [" +(SSL?"https":"http")+"].");
             channel.closeFuture().sync();
         }catch (Throwable e){
 
