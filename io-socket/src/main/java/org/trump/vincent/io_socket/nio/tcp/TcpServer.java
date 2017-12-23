@@ -39,14 +39,15 @@ public class TcpServer {
             this.serverSocketChannel.bind(inetSocketAddress)
                     .configureBlocking(false);
 
-            this.serverSocketChannel.register(selector,SelectionKey.OP_ACCEPT,null);
+            this.serverSocketChannel.register(this.selector,SelectionKey.OP_ACCEPT);
 
             logger.info("The Server is startting and listen the port[ "+this.port+" ].");
 
             while (true) {
 
                 if (this.working) {
-                    Set<SelectionKey> selectionKeys = selector.selectedKeys();
+                    this.selector.select(1000);
+                    Set<SelectionKey> selectionKeys = this.selector.selectedKeys();
 
                     for (Iterator<SelectionKey> it = selectionKeys.iterator(); it.hasNext(); ) {
 
@@ -85,6 +86,15 @@ public class TcpServer {
 
         if(selectionKey.isValid()){
 
+            /**
+             * acceptable
+             * Server SocketChannel
+             * 将接收到的Socket连接注册到Selector （Read型），
+             * 待SelectionKey轮训到该Socket(Readable),就从中读取请求，并做Response.
+             * **********************
+             * 即，以不阻塞的方式处理socket请求（轮训到socket连接注册到Selector）；
+             * 以防止，连接建立，但是请求的数据未发送（Readable，代表请求发送中）
+             */
             if(selectionKey.isAcceptable()){
                 ServerSocketChannel serverChannel = (ServerSocketChannel) selectionKey.channel();
                 SocketChannel socketChannel = serverChannel.accept();
@@ -93,6 +103,10 @@ public class TcpServer {
                 socketChannel.register(this.selector,SelectionKey.OP_READ);
             }
 
+            /**
+             * readable
+             * General SocketChannel
+             */
             if(selectionKey.isReadable()){
                 SocketChannel socketChannel = (SocketChannel) selectionKey.channel();
                 ByteBuffer byteBuffer = ByteBuffer.allocate(1024);
@@ -101,6 +115,7 @@ public class TcpServer {
 
                 if(readNum>0){
                     byteBuffer.flip();
+
                     byte[] bytes = new byte[byteBuffer.remaining()];
                     byteBuffer.get(bytes);
 
