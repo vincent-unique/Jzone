@@ -29,6 +29,10 @@ public class HealthServerHandler<T> extends ChannelHandlerAdapter {
             if (message instanceof FullHttpRequest) {
                 FullHttpRequest request = (FullHttpRequest) message;
 
+                /**
+                 * 真实的MVC-Framework 中是通过拦截（Handler），
+                 * 通过URL模式来映射到具体的Real_Handler (如 Servelet)
+                 */
 //            String uri = request.uri();
 
                 if (request.method().equals(HttpMethod.GET)) {

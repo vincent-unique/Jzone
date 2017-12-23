@@ -43,33 +43,37 @@ public class TcpServer {
 
             logger.info("The Server is startting and listen the port[ "+this.port+" ].");
 
-            while (this.working) {
-                Set<SelectionKey> selectionKeys = selector.selectedKeys();
+            while (true) {
 
-                for (Iterator<SelectionKey> it = selectionKeys.iterator(); it.hasNext(); ) {
+                if (this.working) {
+                    Set<SelectionKey> selectionKeys = selector.selectedKeys();
 
-                    SelectionKey key = it.next();
-                    it.remove();
-                    try {
-                        taskHandler(key);
-                    }catch (Exception e){
-                        logger.error("Report Exception.",e);
-                    }finally {
-                        if(key!=null){
-                            key.cancel();
-                            if(key.channel()!=null)
-                                key.channel().close();
+                    for (Iterator<SelectionKey> it = selectionKeys.iterator(); it.hasNext(); ) {
+
+                        SelectionKey key = it.next();
+                        it.remove();
+                        try {
+                            taskHandler(key);
+
+                        } catch (Exception e) {
+                            logger.error("Report Exception.", e);
+                        } finally {
+                            if (key != null) {
+                                key.cancel();
+                                if (key.channel() != null)
+                                    key.channel().close();
+                            }
                         }
                     }
                 }
-            }
 
-            /**
-             * Close the selector when the worker is stoped.
-             * All channels and pipes will be close registered in the selector when the selector is closed.
-             */
-            if(this.selector!=null){
-                this.selector.close();
+                /**
+                 * Close the selector when the worker is stoped.
+                 * All channels and pipes will be close registered in the selector when the selector is closed.
+                 */
+                if (this.selector != null) {
+                    this.selector.close();
+                }
             }
 
         }catch (IOException e){
@@ -97,12 +101,40 @@ public class TcpServer {
 
                 if(readNum>0){
                     byteBuffer.flip();
-                }
+                    byte[] bytes = new byte[byteBuffer.remaining()];
+                    byteBuffer.get(bytes);
+
+                    String body = new String(bytes,"UTF-8");
+                    logger.info("Server receive："+body);
+
+                    String response = requestHandle(body);
+
+                    doWrite(socketChannel,response);
+
+                }else if(readNum<0){
+                    selectionKey.cancel();
+                    socketChannel.close();
+                }else;
             }
         }
-        //TODO
     }
 
+
+    public String requestHandle(String request){
+        String response = null;
+        //TODO
+        return response;
+    }
+
+    public void doWrite(SocketChannel socketChannel, String response)throws IOException{
+        if(response!=null && response.trim().length()>0){
+            byte[] resBytes = response.getBytes();
+            ByteBuffer writeBuffer = ByteBuffer.allocate(resBytes.length);
+            writeBuffer.put(resBytes);
+            writeBuffer.flip();
+            socketChannel.write(writeBuffer);
+        }
+    }
     public void stop(){
         this.working = false;
     }
