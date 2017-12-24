@@ -87,7 +87,7 @@ public class TcpServer {
         if(selectionKey.isValid()){
 
             /**
-             * acceptable
+             * acceptable（ServerSocketChannel在selector中注册为OP_ACCEPT）
              * Server SocketChannel
              * 将接收到的Socket连接注册到Selector （Read型），
              * 待SelectionKey轮训到该Socket(Readable),就从中读取请求，并做Response.
