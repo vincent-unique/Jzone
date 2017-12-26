@@ -32,7 +32,7 @@
         <!-- Disable the second-level cache (SessionFactory Level) -->
         <!--<property name="cache.provider_class">org.hibernate.cache.NoCacheProvider</property>-->
         
-        <property name="hibernate.transaction.factory_class"></property>
+        <property name="hibernate.transaction.factory_class">org.hibernate.transaction.JTATransactionFactory</property>
 
         <!-- Echo all executed SQL to stdout -->
         <property name="show_sql">true</property>

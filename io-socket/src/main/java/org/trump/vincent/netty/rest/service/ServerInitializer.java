@@ -39,11 +39,13 @@ public class ServerInitializer extends ChannelInitializer<SocketChannel> {
          */
         pipeline.addLast(new LineBasedFrameDecoder(1024))
                 .addLast(new StringDecoder());
+/*
 
         ByteBuf delimiter = Unpooled.copiedBuffer("$".getBytes());
         pipeline.addLast(new DelimiterBasedFrameDecoder(1024,delimiter));
 
         pipeline.addLast(new FixedLengthFrameDecoder(100));
+*/
 
         /*HTTP 服务的解码器*/
         pipeline.addLast("codec",new HttpServerCodec());
