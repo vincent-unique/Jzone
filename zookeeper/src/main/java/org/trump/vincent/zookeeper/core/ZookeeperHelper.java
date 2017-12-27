@@ -1,14 +1,13 @@
 package org.trump.vincent.zookeeper.core;
 
-import org.apache.zookeeper.CreateMode;
-import org.apache.zookeeper.KeeperException;
-import org.apache.zookeeper.Watcher;
-import org.apache.zookeeper.ZooKeeper;
+import org.apache.zookeeper.*;
 import org.apache.zookeeper.data.ACL;
 import org.apache.zookeeper.data.Stat;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.trump.vincent.zookeeper.watcher.LogWatcher;
 
+import java.io.IOException;
 import java.util.List;
 
 /**
@@ -51,6 +50,26 @@ public class ZookeeperHelper {
                 e.printStackTrace();
             } catch (InterruptedException e) {
                 logger.error("InterruptedException ocurrs in create zookeeper node.");
+                e.printStackTrace();
+            }
+        }
+    }
+
+    /**
+     * @param path
+     * @param initialzeData
+     * @param acls
+     * @param createMode
+     * @param callback
+     * @param context
+     */
+    public void createZNode(String path, byte[] initialzeData, List<ACL> acls, CreateMode createMode, AsyncCallback.StringCallback callback,Object context) {
+        if (preValidate()) {
+            ZooKeeper zooKeeper = client.getZooKeeper();
+            try {
+                zooKeeper.create(path, initialzeData, acls, createMode,callback,context);
+            } catch (final Throwable e) {
+                logger.error("Exception ocurrs in creating zookeeper node.",e);
                 e.printStackTrace();
             }
         }
@@ -195,5 +214,15 @@ public class ZookeeperHelper {
                 logger.error("Exception occurs in closing the zookeeper client.");
             }
         }
+    }
+
+
+    public static void main(String[] args) throws IOException{
+        ZookeeperClient client = new ZookeeperClient("127.0.0.0:2181",5000,new LogWatcher(),true);
+        ZookeeperHelper helper = new ZookeeperHelper(client);
+        helper.createZNode("/services/dubbo","".getBytes(), ZooDefs.Ids.OPEN_ACL_UNSAFE,CreateMode.PERSISTENT);
+
+        helper.createZNode("/services/dubbo/dst_lock","lock for distributed system".getBytes(), ZooDefs.Ids.OPEN_ACL_UNSAFE,CreateMode.EPHEMERAL);
+        helper.deleteNode("/services/dubbo/dst_lock");
     }
 }
