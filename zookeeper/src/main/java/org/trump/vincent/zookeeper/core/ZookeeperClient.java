@@ -12,6 +12,18 @@ public class ZookeeperClient {
     private String zkServerAddress;
     private Integer zkClientTimeout = 5000;
 
+    /**
+     * ReadOnly Mode ,Clent chould read from the zk server when quarum less half the numbers in the cluster.
+     * Default ,it is false
+     */
+    private boolean canReadOnly = false;
+
+    /**
+     * Revovery a session with the sessionId and sessionPwd
+     */
+    private long sessionId;
+    private byte[] sessionPwd;
+
     private volatile boolean isClosed;
 
     private volatile ZooKeeper zooKeeper;
@@ -25,8 +37,28 @@ public class ZookeeperClient {
     public ZookeeperClient(String zkConnections,Integer timeout,Watcher watcher)throws IOException{
         this.zkServerAddress = zkConnections;
         this.zkClientTimeout = timeout;
+        this.watcher = watcher;
         this.zooKeeper = new ExtZookeeper(this.zkServerAddress,this.zkClientTimeout,this.watcher);
     }
+    public ZookeeperClient(String zkConnections,Integer timeout,Watcher watcher,boolean canReadOnly)throws IOException{
+        this.zkServerAddress = zkConnections;
+        this.zkClientTimeout = timeout;
+        this.watcher = watcher;
+        this.canReadOnly = canReadOnly;
+
+        this.zooKeeper = new ExtZookeeper(this.zkServerAddress,this.zkClientTimeout,this.watcher,this.canReadOnly);
+    }
+
+    public ZookeeperClient(String zkConnections,Integer timeout,Watcher watcher,long sessionId, byte[] sessionPassWord)throws IOException {
+        this.zkServerAddress = zkConnections;
+        this.zkClientTimeout = timeout;
+        this.watcher = watcher;
+        this.sessionId = sessionId;
+        this.sessionPwd = sessionPassWord;
+
+        this.zooKeeper = new ExtZookeeper(this.zkServerAddress,this.zkClientTimeout,this.watcher,this.sessionId,this.sessionPwd);
+    }
+
     public String getZkServerAddress() {
         return zkServerAddress;
     }
