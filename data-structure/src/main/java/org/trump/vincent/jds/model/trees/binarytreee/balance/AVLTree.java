@@ -7,4 +7,26 @@ import org.trump.vincent.jds.model.trees.binarytreee.BinarySortedTree;
  */
 public interface AVLTree<E extends Comparable<E>> extends BinarySortedTree<E>{
 
+    boolean isAVLTree(AVLNode<E> current);
+
+    interface AVLNode<E>{
+        E getData();
+
+        AVLNode setData(E data);
+
+        AVLNode<E> getParent();
+
+        AVLNode setParent(AVLNode<E> parent);
+
+        AVLNode<E> getLeft();
+        AVLNode setLeft(AVLNode<E> left);
+
+        AVLNode<E> getRight();
+
+        AVLNode setRight(AVLNode<E> right);
+
+        int getHeight();
+
+        AVLNode setHeight(int height);
+    }
 }
