@@ -92,6 +92,35 @@ public abstract class BinaryTreeImpl<E extends Comparable<E>> implements BinaryT
         }
     }
 
+    /**
+     * Compute the size of the binaryTree
+     * @param current
+     * @return
+     */
+    public int treeSize(Node<E> current){
+        if(current==null)
+            return 0;
+        else {
+            return treeSize(current.getLeft())
+                    +1
+                    +treeSize(current.getRight());
+        }
+    }
+
+    /**
+     * Compute the height of the binaryTree
+     * @param current
+     * @return
+     */
+    public int treeHeight(Node<E> current){
+        if(current==null)
+            return 0;
+        else {
+            return 1+ Math.max(treeHeight(current.getLeft()),
+                    treeHeight(current.getRight()));
+        }
+    }
+
     public static class NodeImpl<E> implements BinaryTree.Node<E> {
         private E data;
         private Node<E> parent;

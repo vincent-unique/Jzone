@@ -39,4 +39,18 @@ public interface BinaryTree<E extends Comparable<E>> extends Tree<E> {
     void inOrderTraversal(Node<E> current);
 
     void postOrderTraversal(Node<E> current);
+
+    /**
+     * Compute the size of the binaryTree
+     * @param current
+     * @return
+     */
+    int treeSize(Node<E> current);
+
+    /**
+     * Compute the height of the binaryTree
+     * @param current
+     * @return
+     */
+    int treeHeight(Node<E> current);
 }
