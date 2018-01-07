@@ -33,7 +33,7 @@ public class QuickRank {
         quickRank(0,numbers.length-1,numbers);
 
         for(int i=0;i<numbers.length;i++){
-            System.out.print(numbers[i]+"\t,");
+            System.out.print(Integer.toBinaryString(numbers[i])+"\t,");
         }
 
     }
