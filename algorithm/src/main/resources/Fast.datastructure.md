@@ -11,8 +11,16 @@
 #####2、B 树（B-、B+、B*）
 
 
-#####3、跳跃表（SkipedList）
-
+#####3、跳跃表（SkipedList）- O (log n)
+```$
+    让链表的查询接近线性时间。
+    传统链表的查询的时间复杂度为 O(n) ;由于其结构的限制，即时当前链表是有序的，也无法通过二分查找方式降低时间复杂度。
+    
+    @Reference ： https://www.cnblogs.com/acfox/p/3688607.html
+```
+```$
+    JDK源码：ConcurrentSkipListMap、ConcurrentSkipListSet
+```
 
 #####4、Hash-散列表
 ```$
