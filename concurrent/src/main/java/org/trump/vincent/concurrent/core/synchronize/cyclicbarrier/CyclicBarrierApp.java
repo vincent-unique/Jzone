@@ -25,7 +25,7 @@ public class CyclicBarrierApp {
                 TimeUnit.SECONDS.sleep(1);
                 System.out.println(Thread.currentThread().getId()+" working.\n");
 
-                commonBarrier.reset();
+//                commonBarrier.reset();
                 System.out.println(Thread.currentThread().getId()+" finished.\n");
             }catch (InterruptedException e){
                 e.printStackTrace();
