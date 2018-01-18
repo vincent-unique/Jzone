@@ -51,5 +51,4 @@ public class SqlSessionFactory implements MybatisSessionFactoryAware{
             buildSessionFactory(reader);
         }
     }
-
 }

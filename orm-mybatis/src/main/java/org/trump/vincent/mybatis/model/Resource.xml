@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper>
+<mapper namespace="org.trump.vincent.mybatis.model.ResourceMapper">
     <select id="findById"
             parameterType="java.lang.String"
             resultType="org.trump.vincent.mybatis.model.Resource"
