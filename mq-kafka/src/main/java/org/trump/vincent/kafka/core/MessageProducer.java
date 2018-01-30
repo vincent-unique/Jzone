@@ -1,5 +1,6 @@
 package org.trump.vincent.kafka.core;
 
+import org.apache.kafka.clients.CommonClientConfigs;
 import org.apache.kafka.clients.producer.Callback;
 import org.apache.kafka.clients.producer.KafkaProducer;
 import org.apache.kafka.clients.producer.Producer;
@@ -90,7 +91,12 @@ public class MessageProducer<M> {
 
     public static void main(String[] args) {
         Properties props = new Properties();
-        props.put("bootstrap.servers", "localhost:9092");
+//        props.put("bootstrap.servers", "localhost:9092");
+
+        //Connection config for kafka cluster [ brokers ]
+        props.put(CommonClientConfigs.BOOTSTRAP_SERVERS_CONFIG,"127.0.0.1:9092,127.0.0.1:9093,127.0.0.1:9094");
+
+
         //The "all" setting we have specified will result in blocking on the full commit of the record, the slowest but most durable setting.
         //“所有”设置将导致记录的完整提交阻塞，最慢的，但最持久的设置。
         props.put("acks", "all");
