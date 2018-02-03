@@ -13,19 +13,21 @@ public class NumberArray {
      * @param ele
      * @return
      */
-    public int removeElement(int[] nums ,int ele){
+    public static int removeElement(int[] nums ,int ele){
         int i = 0, j= 0;
         for(;i<nums.length;i++){
-           /* if(nums[i]==ele){
+            if(nums[i]==ele){
                 continue;
             }
             nums[j] = nums[i];
-            j++;*/
+            j++;
 
-           if(nums[i]!=ele){
+          /* if(nums[i]!=ele){
                j++;
+           }else {
+               continue;
            }
-           nums[j] = nums[i];
+           nums[j-1] = nums[i];*/
         }
         return j;
     }
@@ -39,7 +41,24 @@ public class NumberArray {
      * @param nums
      * @return
      */
-    public int removeDuplicate(int[] nums){
+    public static int removeDuplicate(int[] nums){
+        int i = 1, j = 1;
+        for(i=1;i<nums.length;i++){
+            if( nums[i]==nums[i-1]){
+                continue;
+            }
+            nums[j] = nums[i];
+            j++;
+        }
+        return j;
+    }
 
+    public static void main(String[] args) {
+        int[] nums = {1,1,1,2,3,3,4};
+//        System.out.println(removeDuplicate(nums));
+        int l = removeDuplicate(nums);
+        for(int i=0;i<l;i++){
+            System.out.println(nums[i]);
+        }
     }
 }
