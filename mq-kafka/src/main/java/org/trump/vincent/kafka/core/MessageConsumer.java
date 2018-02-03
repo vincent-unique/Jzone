@@ -1,5 +1,6 @@
 package org.trump.vincent.kafka.core;
 
+import org.apache.kafka.clients.CommonClientConfigs;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.apache.kafka.clients.consumer.ConsumerRecords;
 import org.apache.kafka.clients.consumer.KafkaConsumer;
@@ -71,7 +72,11 @@ public class MessageConsumer<M>{
     public static void main(String[] args) {
         Properties props = new Properties();
 
-        props.put("bootstrap.servers", "localhost:9092");
+//        props.put("bootstrap.servrs", "localhost:9092");
+        //Connection config for kafka cluster [ brokers ]
+        props.put(CommonClientConfigs.BOOTSTRAP_SERVERS_CONFIG,"127.0.0.1:9092,127.0.0.1:9093,127.0.0.1:9094");
+
+
         System.out.println("this is the group part test 1");
         //消费者的组id
         props.put("group.id", "GroupA");//这里是GroupA或者GroupB
