@@ -16,6 +16,7 @@ public class Producer<E extends Event> {
         this.ringBuffer.publishEvent(new EventTranslator<E>() {
             @Override
             public void translateTo(E event, long sequence) {
+
                 //TODO
             }
         });
