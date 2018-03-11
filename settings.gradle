@@ -24,4 +24,5 @@ include 'io-socket'
 include 'algorithm'
 include 'rpc-thrift'
 findProject(':rpc-thrift')?.name = 'thrift'
+include 'lmax-disruptor'
 
